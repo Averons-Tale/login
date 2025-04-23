@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentifizierung | Averon's Tale</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="lib/css/styles.css">
+    <link rel="icon" href="lib/img/averons-tale_logo.png"
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="theme-transition">
+        <header class="glass-header">
+            <div class="container">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-hourglass"></i></span>
+                    <h1>Averon's Tale</h1>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="https://averons-tale.net#features">Features</a></li>
+                        <li><a href="https://averons-tale.net#gameplay">Gameplay</a></li>
+                        <li><a href="https://averons-tale.net#world">Welt</a></li>
+                        <li><a href="#" class="btn btn-primary" id="authNavBtn">Anmelden</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="auth-container">
+            <div class="auth-card">
+                <!-- Toggle Buttons -->
+                <div class="form-toggle">
+                    <button class="toggle-btn active" id="loginToggle">Anmelden</button>
+                    <button class="toggle-btn" id="registerToggle">Registrieren</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active-form">
+                    <div class="auth-header">
+                        <h1>Willkommen zurück</h1>
+                        <p>Melden Sie sich an, um Ihr Abenteuer fortzusetzen</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginEmail">E-Mail</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="deine@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Passwort</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="#" id="forgotPassword">Passwort vergessen?</a>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="auth-header">
+                        <h1>Neues Konto erstellen</h1>
+                        <p>Beginnen Sie Ihr Zeitreise-Abenteuer</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerUsername">Benutzername</label>
+                        <input type="text" id="registerUsername" class="form-control" placeholder="AveronSpieler" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">E-Mail</label>
+                        <input type="email" id="registerEmail" class="form-control" placeholder="deine@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Passwort</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="••••••••" required>
+                        <small class="form-hint">Mindestens 8 Zeichen</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Passwort bestätigen</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="notice-box">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Mit der Registrierung akzeptieren Sie unsere <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> und <a href="datenschutz.html">Datenschutzrichtlinien</a>.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Konto erstellen</button>
+                    </div>
+                </form>
+
+                <!-- Social Login -->
+                <div class="auth-footer">
+                    <div class="divider">
+                        <span>oder fortfahren mit</span>
+                    </div>
+                    <div class="social-login">
+                        <button class="social-btn google" id="googleLogin">
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button class="social-btn discord" id="discordLogin">
+                            <i class="fab fa-discord"></i> Discord
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <footer class="main-footer">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="logo">
+                                <span class="logo-icon" class="logo-picture"><img src="lib/img/averons-tale_logo.png" height="100px" width="100px" style="border-radius: 15px;"></span>
+                                <h2>Averon's Tale</h2>
+                            </div>
+                            <p>Ein revolutionäres Adventure-Game mit Zeitreise-Mechanik</p>
+                        </div>
+                        <div class="footer-links">
+                            <h3>Entdecken</h3>
+                            <ul>
+                                <li><a href="#features">Features</a></li>
+                                <li><a href="#gameplay">Gameplay</a></li>
+                                <li><a href="#world">Welt</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h3>Rechtliches</h3>
+                            <ul>
+                                <li><a href="https://averons-tale.net/nutzungsbedingungen.html">Nutzungsbedingungen</a></li>
+                                <li><a href="https://averons-tale.net/datenschutz.html">Datenschutz</a></li>
+                                <li><a href="https://averons-tale.net/impressum.html">Impressum</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-social">
+                            <h3>Folge uns</h3>
+                            <div class="social-icons">
+                                <a href="https://twitter.com"><i class="fab fa-twitter"></i></a>
+                                <a href="https://discord.gg/MPV2GHbkzb"><i class="fab fa-discord"></i></a>
+                                <a href="https://youtube.com"><i class="fab fa-youtube"></i></a>
+                                <a href="https://help.averons-tale.net"><i class="fa-solid fa-circle-info"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 Averon's Tale. Alle Rechte vorbehalten.</p>
+                    </div>
+                </div>
+            </footer>
+        </footer>
+    </div>
+
+    <script src="lib/js/firebase-config.js"></script>
+    <script src="lib/js/auth.js"></script>
+    <script src="lib/js/main.js"></script>
+</body>
+</html>

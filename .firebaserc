@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "averon-s-tale-login",
+    "login": "averon-s-tale-login"
+  },
+  "targets": {},
+  "etags": {}
+}

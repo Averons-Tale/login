@@ -64,3 +64,28 @@ exports.verifyToken = functions.https.onRequest(async (req, res) => {
   }
 });
 
+
+
+
+
+
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const cors = require('cors')({origin: true});
+
+// Firebase Admin initialisieren
+admin.initializeApp();
+
+exports.authProxy = functions.https.onRequest((req, res) => {
+    cors(req, res, async () => {
+        if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+        
+        try {
+            const { token } = req.body;
+            const decoded = await admin.auth().verifyIdToken(token);
+            res.status(200).json({ valid: true, uid: decoded.uid });
+        } catch (error) {
+            res.status(401).json({ valid: false });
+        }
+    });
+});
